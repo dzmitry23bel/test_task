@@ -42,4 +42,3 @@ class WebHelpers:
         first_free_wallpaper = next(el for el in all_wallpapers if not
                                     el.locator("span[data-icon='true']").count())
         return first_free_wallpaper
-
