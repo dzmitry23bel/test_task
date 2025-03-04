@@ -46,3 +46,15 @@ def test_download_free_wallpaper(test_setup, page):
         logger.info("Image verification passed!")
     except Exception as e:
         logger.info(f"Image verification failed:{str(e)}")
+
+def test_download_premium_wallpaper(test_setup, page):
+    keyword_for_test = 'sun'
+    WebHelpers.move_to_search_section(page)
+    WebHelpers.search_using_main_search(page, text_to_search=keyword_for_test)
+    premium_wallpaper_el = WebHelpers.get_first_premium_card(page)
+    premium_wallpaper_el.click()
+    page.get_by_text('Premium').wait_for(timeout=5000, state="visible")
+    page.wait_for_timeout(2000)
+    page.locator("button[data-event='ATTEMPT_PURCHASE_CONTENT']").last.click()
+    page.wait_for_timeout(2000)
+    assert page.locator("button:has-text('Buy Credits')").count(), "Window with buying proposal didn't show up"

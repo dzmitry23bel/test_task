@@ -42,3 +42,9 @@ class WebHelpers:
         first_free_wallpaper = next(el for el in all_wallpapers if not
                                     el.locator("span[data-icon='true']").count())
         return first_free_wallpaper
+
+    @staticmethod
+    def get_first_premium_card(page: Page) -> Locator:
+        all_wallpapers = page.locator("a[href*='/wallpapers/']").all()
+        first_premium_wallpaper = next(el for el in all_wallpapers if el.locator("span[data-icon='true']").count())
+        return first_premium_wallpaper
