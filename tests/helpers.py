@@ -10,16 +10,14 @@ class WebHelpers:
         page.goto(test_url)
 
     @staticmethod
-    def accept_cookies(page: Page):
+    def agree_on_personal_data(page: Page):
         try:
-            cookie_window = page.get_by_text("We value your privacy")
-            cookie_window.wait_for(state="visible")
-            if cookie_window.is_visible():
-                accept_cookie_button = page.locator("button:has-text('AGREE')")
-                accept_cookie_button.click()
-                logger.info('Cookies have been accepted')
+            consent_button = page.get_by_role("button", name="Consent").first
+            consent_button.wait_for(state="visible")
+            consent_button.click()
+            logger.info('Personal data has been accepted')
         except:
-            logger.info('No window with cookies has been found')
+            logger.info('No window with personal data has been found')
 
     @staticmethod
     def search_using_main_search(page: Page, text_to_search: str):

@@ -11,7 +11,7 @@ DOWNLOAD_PATH = "downloads"
 @pytest.fixture
 def test_setup(page, test_url):
     WebHelpers.go_to_webapp(page, test_url)
-    WebHelpers.accept_cookies(page)
+    WebHelpers.agree_on_personal_data(page)
 
 
 def test_search_wallpaper(test_setup, page):
@@ -34,7 +34,7 @@ def test_download_free_wallpaper(test_setup, page):
     free_wallpaper_el.click()
     # Click the button to trigger download
     with page.expect_download() as download_info:
-        page.locator("button:has-text('Download Free')").last.click()
+        page.locator("button:has-text('Download')").last.click()
     # Get the downloaded file
     download = download_info.value
     file_path = os.path.join(DOWNLOAD_PATH, download.suggested_filename)
