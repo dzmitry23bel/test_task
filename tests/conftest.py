@@ -6,10 +6,12 @@ def pytest_addoption(parser):
     """Allows passing a custom test URL via --test-url."""
     parser.addoption("--test-url", action="store", default="")
 
+
 @pytest.fixture
 def test_url(request):
     """Fixture to get the test URL from CLI or default."""
     return request.config.getoption("--test-url")
+
 
 @pytest.fixture(scope="session")
 def browser():
@@ -17,6 +19,7 @@ def browser():
         browser = p.chromium.launch(headless=False)
         yield browser
         browser.close()
+
 
 @pytest.fixture
 def page(browser):
